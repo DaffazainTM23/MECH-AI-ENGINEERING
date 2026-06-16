@@ -41,7 +41,7 @@ export default function WorkflowSection() {
     {
       id: "05",
       title: "Model Training",
-      desc: "Ananda's ML engine trains Extra Trees, Oblivious CatBoost, and loss-regularized XGBoost regressors on 80% splits.",
+      desc: "MECH AI's ML engine trains Extra Trees, Oblivious CatBoost, and loss-regularized XGBoost regressors on 80% splits.",
       icon: Cpu,
       color: "from-pink-500/20 to-indigo-500/5",
       iconColor: "text-pink-400"

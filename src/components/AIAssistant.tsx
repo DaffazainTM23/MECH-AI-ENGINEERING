@@ -33,8 +33,8 @@ export default function AIAssistant() {
     {
       sender: "advisor",
       text: language === "id" 
-        ? "Assalamu'alaikum Mas Ananda Zain! Saya adalah MECH AI ADVISOR yang mendampingi bimbingan akademik Anda di UMY. Di sini, Anda bisa mengunggah foto pengujian mekanis, cetak biru PDF, maupun dokumen Word (.docx) bimbingan untuk saya telaah dan diskusikan secara cerdas. Bagaimana progres analisis material atau regresi permesinan Anda hari ini?"
-        : "Assalamu'alaikum Mas Ananda Zain! I am your premium MECH AI ADVISOR accompanying your academic bimbingan at UMY. Here, you can upload mechanical test photos, PDF blueprints, or bimbingan Word documents (.docx) for highly intelligent analysis. Shall we review your material statistics or machining regression curves today?",
+        ? "Assalamu'alaikum Daffa Zain! Saya adalah MECH AI yang mendampingi bimbingan akademik Anda di UMY. Di sini, Anda bisa mengunggah foto pengujian mekanis, cetak biru PDF, maupun dokumen Word (.docx) bimbingan untuk saya telaah dan diskusikan secara cerdas. Bagaimana progres analisis material atau regresi permesinan Anda hari ini?"
+        : "Assalamu'alaikum Daffa Zain! I am MECH AI accompanying your academic bimbingan at UMY. Here, you can upload mechanical test photos, PDF blueprints, or bimbingan Word documents (.docx) for highly intelligent analysis. Shall we review your material statistics or machining regression curves today?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -56,9 +56,15 @@ export default function AIAssistant() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto scroll
+  // Auto scroll only the local container to prevent global window jumping
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const scroller = document.getElementById("premium_chat_scroller");
+    if (scroller) {
+      scroller.scrollTo({
+        top: scroller.scrollHeight,
+        behavior: "smooth"
+      });
+    }
   }, [messages, loading]);
 
   // Handle Drag & Drop events
@@ -234,14 +240,14 @@ export default function AIAssistant() {
       
       setMessages(prev => [...prev, {
         sender: "advisor",
-        text: result.reply || "Mohon maaf Ananda Zain, server bimbingan sedang menguji optimasi. Silakan ajukan beberapa detik lagi.",
+        text: result.reply || "Mohon maaf Daffa Zain, server bimbingan sedang menguji optimasi. Silakan ajukan beberapa detik lagi.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
 
     } catch (err: any) {
       setMessages(prev => [...prev, {
         sender: "advisor",
-        text: "Terjadi gangguan jaringan bimbingan mekanikal, Mas Ananda Zain. Silakan periksa koneksi atau ulangi menekan tombol kirim.",
+        text: "Terjadi gangguan jaringan bimbingan mekanikal, Daffa Zain. Silakan periksa koneksi atau ulangi menekan tombol kirim.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
     } finally {
@@ -343,8 +349,8 @@ export default function AIAssistant() {
             {/* Micro details listing - beautifully simple */}
             <div className="space-y-2.5 pt-2">
               <div className="flex items-center justify-between text-[10px] font-mono p-2 bg-white/[0.02] border border-white/5 rounded-xl">
-                <span className="text-slate-450 uppercase font-black">Advisor</span>
-                <span className="text-white font-bold">Prof. AI Advisor</span>
+                <span className="text-slate-450 uppercase font-black">Engine Type</span>
+                <span className="text-white font-bold">MECH AI ENGINEER</span>
               </div>
               <div className="flex items-center justify-between text-[10px] font-mono p-2 bg-white/[0.02] border border-white/5 rounded-xl">
                 <span className="text-slate-450 uppercase font-black">Domain</span>
@@ -414,7 +420,7 @@ export default function AIAssistant() {
                       <div className="flex items-center justify-between mb-2 border-b border-white/[0.04] pb-1.5">
                         <span className="text-[9px] font-mono font-black uppercase tracking-widest text-[#81879a] flex items-center gap-1">
                           {isAdvisor ? <Sparkles className="w-3 h-3 text-cyan-400" /> : <Terminal className="w-3 h-3 text-pink-400" />}
-                          {isAdvisor ? "MECH AI ADVISOR (Prof. AI Advisor)" : "STUDENT (Ananda Zain)"}
+                          {isAdvisor ? "MECH AI" : "STUDENT (Daffa Zain)"}
                         </span>
                         
                         <div className="flex items-center space-x-2.5">
@@ -461,13 +467,23 @@ export default function AIAssistant() {
                 <motion.div
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex w-full justify-start"
+                  className="flex w-full justify-start select-none"
                 >
-                  <div className="bg-[#0b0c16]/95 border border-white/5 rounded-[24px] rounded-tl-none px-5 py-4 text-left shadow-xl flex items-center space-x-3.5">
-                    <Loader2 className="w-4 h-4 text-cyan-400 animate-spin" />
-                    <span className="text-xs text-cyan-400 font-mono tracking-wider animate-pulse uppercase">
-                      Advisor is compiling academic response and analyzing variables...
+                  <div className="flex flex-col space-y-1.5 self-start text-left max-w-[85%]">
+                    <span className="text-[10px] font-mono font-black uppercase tracking-widest text-[#81879a] flex items-center gap-1.5 ml-1">
+                      <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                      MECH AI ENGINEER
                     </span>
+                    <div className="bg-[#050608]/90 border border-white/5 px-5 py-3.5 rounded-[1.25rem] rounded-tl-none shadow-xl flex items-center space-x-2.5">
+                      <span className="text-[11.5px] font-medium text-slate-300 font-sans tracking-wide">
+                        {language === "id" ? "MECH AI sedang mengetik" : "MECH AI is writing"}
+                      </span>
+                      <div className="flex space-x-1 items-center pt-2">
+                        <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0ms', animationDuration: '0.8s' }} />
+                        <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '150ms', style: { contentVisibility: 'auto' } } as any} />
+                        <span className="w-1.5 h-1.5 bg-violet-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' } as any} />
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               )}

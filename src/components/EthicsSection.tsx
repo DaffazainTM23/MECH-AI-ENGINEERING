@@ -88,7 +88,7 @@ export default function EthicsSection() {
           "As engineering students and practitioners, human oversight represents the final safeguard. AI tools provide powerful statistical calculations, but expert physical reasoning and peer-reviewed mechanical laws remain the absolute pillars of professional engineering excellence."
         </p>
         <span className="text-[10px] text-slate-500 block font-mono">
-          Ananda Nur Daffa Zain (NIM: 20230130023) | Created by ZainProject
+          Daffa Zain (NIM: 20230130023) | Created by ZainProject
         </span>
       </div>
 

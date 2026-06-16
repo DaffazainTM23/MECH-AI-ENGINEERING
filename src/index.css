@@ -573,5 +573,26 @@
   animation: scroll-reel-exit 240ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Custom MapLibre-GL Popup Overrides for premium sleek dark mode look */
+.maplibregl-popup-content, .mapboxgl-popup-content {
+  background: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.maplibregl-popup-tip, .mapboxgl-popup-tip {
+  border-top-color: rgba(15, 23, 42, 0.98) !important;
+  border-bottom-color: rgba(15, 23, 42, 0.98) !important;
+  border-left-color: rgba(15, 23, 42, 0.98) !important;
+  border-right-color: rgba(15, 23, 42, 0.98) !important;
+}
+
+.maplibregl-popup-close-button, .mapboxgl-popup-close-button {
+  display: none !important;
+}
+
+
 
 

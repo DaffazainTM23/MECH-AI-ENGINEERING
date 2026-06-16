@@ -216,7 +216,7 @@ export default function Navigation({ activeTab, setActiveTab, datasetLoaded, mod
           <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/10 bg-[#020305] shrink-0">
             <img 
               src="https://res.cloudinary.com/df0razmlr/image/upload/v1771712564/PP_WEB_ianvph.jpg" 
-              alt="Ananda Nur Daffa Zain" 
+              alt="Daffa Zain" 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
               onError={(e) => {
@@ -225,7 +225,7 @@ export default function Navigation({ activeTab, setActiveTab, datasetLoaded, mod
             />
           </div>
           <div className="hidden xl:flex flex-col text-left">
-            <span className="text-[10px] text-white font-black leading-none tracking-tight">Ananda Nur Daffa Zain</span>
+            <span className="text-[10px] text-white font-black leading-none tracking-tight">Daffa Zain</span>
             <span className="text-[7.5px] text-indigo-400 font-mono font-extrabold uppercase tracking-widest mt-1">NIM: 20230130023</span>
           </div>
         </div>
@@ -268,7 +268,7 @@ export default function Navigation({ activeTab, setActiveTab, datasetLoaded, mod
                       <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white/10 bg-[#020305] shrink-0 font-sans">
                         <img 
                           src="https://res.cloudinary.com/df0razmlr/image/upload/v1771712564/PP_WEB_ianvph.jpg" 
-                          alt="Ananda Nur Daffa Zain" 
+                          alt="Daffa Zain" 
                           className="w-full h-full object-cover"
                           referrerPolicy="no-referrer"
                           onError={(e) => {
@@ -277,7 +277,7 @@ export default function Navigation({ activeTab, setActiveTab, datasetLoaded, mod
                         />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-[11px] text-white font-extrabold leading-tight">Ananda Nur Daffa Zain</span>
+                        <span className="text-[11px] text-white font-extrabold leading-tight">Daffa Zain</span>
                         <span className="text-[8px] text-indigo-400 font-mono font-bold uppercase tracking-wider mt-0.5">NIM: 20230130023</span>
                       </div>
                     </div>

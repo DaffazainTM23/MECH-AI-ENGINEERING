@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { audio } from "../utils/audioService";
 
 export default function StartupLoader({ onComplete }: { onComplete: () => void }) {
   const [progress, setProgress] = useState(0);
@@ -100,7 +101,7 @@ export default function StartupLoader({ onComplete }: { onComplete: () => void }
 
         {/* Academic detail row centered */}
         <div className="mt-8 pt-5 border-t border-white/5 w-full flex flex-col items-center justify-center space-y-1 text-[8.5px] font-mono tracking-wide text-zinc-500 uppercase leading-none">
-          <div>NIM. 20230130023 • ANANDA NUR DAFFA ZAIN</div>
+          <div>NIM. 20230130023 • DAFFA ZAIN</div>
           <div className="opacity-60 text-[7.5px]">UNIVERSITAS MUHAMMADIYAH YOGYAKARTA</div>
         </div>
 

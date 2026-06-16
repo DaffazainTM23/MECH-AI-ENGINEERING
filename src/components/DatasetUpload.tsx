@@ -18,6 +18,7 @@ import { BentoGrid, type BentoItem } from "@/components/ui/bento-grid";
 import AnimatedGenerateButton from "./ui/animated-generate-button-shadcn-tailwind";
 import { useLanguage } from "../context/LanguageContext";
 import { WarningGraphic } from "./ui/warning-graphic";
+import { audio } from "../utils/audioService";
 
 interface DatasetUploadProps {
   activeTab?: string;
@@ -142,6 +143,13 @@ export default function DatasetUpload({
       logsContainerRef.current.scrollTop = logsContainerRef.current.scrollHeight;
     }
   }, [compileLogs]);
+
+  // Cleanup processing sound on unmount
+  useEffect(() => {
+    return () => {
+      audio.stopProcessingHum();
+    };
+  }, []);
 
   // Synchronize maxStepReached based on pipeline completions
   useEffect(() => {
@@ -648,6 +656,7 @@ export default function DatasetUpload({
 
   const toggleFeature = (col: string) => {
     if (!onSetFeatures) return;
+    audio.playClick();
     if (selectedFeatures.includes(col)) {
       onSetFeatures(selectedFeatures.filter(f => f !== col));
     } else {
@@ -658,6 +667,7 @@ export default function DatasetUpload({
 
   const handleTargetChange = (col: string) => {
     if (!onSetTarget || !onSetFeatures) return;
+    audio.playClick();
     onSetTarget(col);
     onSetFeatures(selectedFeatures.filter(f => f !== col));
   };
@@ -822,6 +832,9 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
   const handleAutoMLCompilation = () => {
     if (!currentDataset || selectedFeatures.length === 0 || !selectedTarget) return;
 
+    audio.playCompileStart();
+    audio.startProcessingHum();
+
     setIsCompiling(true);
     setCompileProgress(0);
     setCompileLogs([]);
@@ -865,6 +878,9 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
             `[CHAMPION] Top performer: "${result.bestModelName}" achieved R² Score: ${champion?.r2.toFixed(4) || "0.941"}.`
           ]);
 
+          // play high quality completed mechanical/industrial success sound
+          audio.playSuccess();
+
           // Register performances to global application MLState
           const propsCallbackArgs = {
             preprocessingResult: preprocessed,
@@ -892,6 +908,7 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
             `[COMPLETED] Champion Model performance synchronized. R2: ${champion?.r2.toFixed(4) || "0.941"}.`
           ]);
         } catch (e: any) {
+          audio.stopProcessingHum();
           setError(`Compilation crash: ${e?.message || "Verify column matrices parameters."}`);
           setCompileLogs(prev => [...prev, `[CRITICAL ERROR] Fit failure: ${e?.message || "Numerical boundary matrix error"}`]);
         } finally {
@@ -903,6 +920,7 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
 
   const isModelSelected = (id: string) => activeModelChoices.includes(id);
   const toggleModelChoice = (id: string) => {
+    audio.playClick();
     if (activeModelChoices.includes(id)) {
       setActiveModelChoices(activeModelChoices.filter(m => m !== id));
     } else {
@@ -1704,38 +1722,7 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
                   </div>
                 </div>
 
-                {/* Preset Blueprint actions beautifully integrated into unified card header under neutral slate look */}
-                <div className="flex flex-wrap items-center gap-2 text-xs">
-                  <span className="text-[9px] font-mono tracking-wider font-extrabold text-slate-450 uppercase mr-1">Preset:</span>
-                  <button
-                    type="button"
-                    onClick={() => handleApplyPreset("recommended")}
-                    className="px-3.5 py-1.8 rounded-xl border border-zinc-700/60 bg-zinc-950/40 hover:bg-zinc-800 text-zinc-250 font-mono font-bold uppercase tracking-wider text-[9px] cursor-pointer transition-all active:scale-97 hover:border-zinc-400"
-                  >
-                    ⭐ Recommended
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleApplyPreset("fast")}
-                    className="px-3.5 py-1.8 rounded-xl border border-zinc-700/60 bg-zinc-950/40 hover:bg-zinc-800 text-zinc-250 font-mono font-bold uppercase tracking-wider text-[9px] cursor-pointer transition-all active:scale-97 hover:border-zinc-400"
-                  >
-                    🚀 Fast
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleApplyPreset("full")}
-                    className="px-3.5 py-1.8 rounded-xl border border-zinc-700/60 bg-zinc-950/40 hover:bg-zinc-800 text-zinc-250 font-mono font-bold uppercase tracking-wider text-[9px] cursor-pointer transition-all active:scale-97 hover:border-zinc-400"
-                  >
-                    🔥 Full Benchmark
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleApplyPreset("clear")}
-                    className="px-3.5 py-1.8 rounded-xl border border-white/5 bg-black hover:bg-zinc-900 text-zinc-400 font-mono font-bold uppercase tracking-wider text-[9px] cursor-pointer transition-all active:scale-97"
-                  >
-                    🗑️ Clear
-                  </button>
-                </div>
+                {/* Preset Blueprint actions removed as requested */}
               </div>
 
               {/* Small dataset warning inside unified panel */}

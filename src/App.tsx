@@ -24,6 +24,7 @@ import Navigation from "./components/Navigation";
 import InteractiveBlueprintBackground from "./components/InteractiveBlueprintBackground";
 import { CinematicFooter } from "@/components/ui/motion-footer";
 import StartupLoader from "./components/StartupLoader";
+import { audio } from "./utils/audioService";
 // Import decorative icons
 import { 
   Cpu, Moon, Sun, Printer, Loader2, Menu, X, Home, Upload, 
@@ -37,8 +38,11 @@ export default function App() {
   const [navigationResetTick, setNavigationResetTick] = useState<number>(0);
 
   const handleNavigateToTab = (tab: ActiveTab) => {
+    audio.playTabSwitch();
     setActiveTab(tab);
     setNavigationResetTick(prev => prev + 1);
+    // Move window viewport back to top of the page on menu transition
+    window.scrollTo({ top: 0, behavior: "instant" });
   };
 
   const [theme, setTheme] = useState<"navy" | "contrast">("navy");
@@ -413,7 +417,7 @@ export default function App() {
                       <button
                         key={item.id}
                         onClick={() => {
-                          if (!item.disabled) setActiveTab(item.id);
+                          if (!item.disabled) handleNavigateToTab(item.id);
                         }}
                         disabled={item.disabled}
                         className={`px-4 py-2 rounded-xl text-[10.5px] font-mono font-bold tracking-wide uppercase transition-all duration-300 flex items-center space-x-1.5 ${

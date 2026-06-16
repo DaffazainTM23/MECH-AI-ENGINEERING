@@ -42,8 +42,8 @@ export default function ModelPerformanceDashboard({
     {
       sender: "advisor",
       text: language === "id" 
-        ? "Assalamu'alaikum, Ananda! Saya adalah MECH AI ENGINEER Anda. Di sini kita bebas berdiskusi mengenai hasil evaluasi model AutoML kita. Silakan tanyakan apa saja seputar hasil evaluasi parameter manufaktur dan machine learning untuk proyek Anda!"
-        : "Assalamu'alaikum! I am your MECH AI ENGINEER. We can discuss the evaluation metrics of our AutoML model here. Feel free to ask anything about manufacturing parameter evaluations and machine learning for your project!",
+        ? "Assalamu'alaikum, Daffa Zain! Saya adalah MECH AI. Di sini kita bebas berdiskusi mengenai hasil evaluasi model AutoML kita. Silakan tanyakan apa saja seputar hasil evaluasi parameter manufaktur dan machine learning untuk proyek Anda!"
+        : "Assalamu'alaikum! I am MECH AI. We can discuss the evaluation metrics of our AutoML model here. Feel free to ask anything about manufacturing parameter evaluations and machine learning for your project!",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -63,10 +63,17 @@ export default function ModelPerformanceDashboard({
   const numRows = preprocessingResult?.allX.length || dataset?.rows.length || 0;
   const numFeatures = selectedFeatures.length;
 
-  // Auto-scroll chat to bottom
+  // Auto-scroll chat to bottom of local container
   useEffect(() => {
-    if (activeSideTab === "chat" && chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (activeSideTab === "chat") {
+      const scroller = document.getElementById("dashboard_chat_scroller");
+      if (scroller) {
+        // Smooth scroll container internally
+        scroller.scrollTo({
+          top: scroller.scrollHeight,
+          behavior: "smooth"
+        });
+      }
     }
   }, [chatMessages, activeSideTab]);
 
@@ -180,12 +187,12 @@ export default function ModelPerformanceDashboard({
             const mapeVal = bestModel?.mape != null ? (bestModel.mape * 100).toFixed(2) + "%" : "4.12%";
 
             const historyList = [...chatMessages, userMsg]
-              .map(m => `${m.sender === "student" ? "Mahasiswa (Ananda)" : "Akselerator Akademik (MECH AI ADVISOR)"}: ${m.text}`)
+              .map(m => `${m.sender === "student" ? "Mahasiswa (Daffa Zain)" : "Asisten AI (MECH AI)"}: ${m.text}`)
               .join("\n\n");
 
-            const fullPrompt = `Anda adalah Profesor Teknik Mesin dan Pakar AI Terapan terkemuka di Universitas Muhammadiyah Yogyakarta (UMY).
-Nama Anda adalah MECH AI ADVISOR (Prof. AI Advisor), membimbing mahasiswa kesayangan Anda:
-- Nama Mahasiswa: Ananda Nur Daffa Zain
+            const fullPrompt = `Anda adalah MECH AI, Asisten AI Mekanikal Cerdas terkemuka di Universitas Muhammadiyah Yogyakarta (UMY).
+Anda membimbing mahasiswa berikut:
+- Nama Mahasiswa: Daffa Zain
 - NIM: 20230130023
 - Proyek Penelitian: Applied AI in Manufacturing Systems & Mechanical Diagnostics
 
@@ -198,22 +205,21 @@ DETAIL MODEL SAAT INI (Gunakan detail ini sebagai konteks bimbingan akademis jik
 
 PERATURAN RESPONS ADAPTIF:
 1. SESUAIKAN PANJANG JAWABAN:
-   - Jika mahasiswa mengirim pesan pendek, menyapa (seperti "halo", "apa kabar prof", "siap", "oke baik", "terima kasih"), Anda HARUS membalas secara SINGKAT, PADAT, elegan dan ramah (1-3 kalimat saja). JANGAN menulis analisis panjang lebar atau menampilkan statistik metrics jika tidak relevan dengan salam pendek mereka!
+   - Jika mahasiswa mengirim pesan pendek, menyapa (seperti "halo", "kabarnya", "siap", "oke", "terima kasih"), Anda HARUS membalas secara SINGKAT, PADAT, elegan dan ramah (1-3 kalimat saja). JANGAN menulis analisis panjang lebar atau menampilkan statistik metrics jika tidak relevan dengan salam pendek mereka!
    - Jika mahasiswa memberikan pertanyaan ilmiah berbobot atau bertanya tentang langkah optimasi, fisika material, atau metrik pengujian, berikan analisis akademis ilmiah yang mendalam, terperinci, dan mendidik.
 2. JELASKAN ATAU BACA BERKAS / LAMPIRAN JIKA ADA.
 3. HINDARI SIMBOL MATEMATIKA YANG BERANTAKAN/LATEX JARGON: Selalu tulis persamaan matematika fisis secara bersih dengan teks Unicode murni tanpa simbol LaTeX ($), misalnya R², f².
-4. GAYA BAHASA DAN PENUTUP: Gunakan Bahasa Indonesia yang sangat sopan khas dosen UMY. Selalu panggil mahasiswa dengan hangat sebagai "Mas Ananda" atau "Ananda".
-   - Akhiri respons bimbingan secara santun dan konsisten dengan pesan motivasi: "Selamat belajar Ananda! Tetap teliti dalam praktikum. - Prof. AI Advisor".
+4. GAYA BAHASA DAN PENUTUP: Gunakan Bahasa Indonesia yang sangat sopan khas dosen UMY. Selalu panggil mahasiswa dengan hangat sebagai "Daffa Zain" atau "Mas Daffa". JANGAN pernah menyebut diri Anda "Prof. AI Advisor" atau menggunakan signature "- Prof. AI Advisor". Cukup jawab mewakili MECH AI dengan bijaksana dan bersahabat.
 
 Berikut transkrip riwayat obrolan terkini:
 ${historyList}
-MECH AI ADVISOR (Prof. AI Advisor):`;
+MECH AI:`;
 
             const response = await aiClient.models.generateContent({
               model: "gemini-3.5-flash",
               contents: fullPrompt,
               config: {
-                systemInstruction: "Anda adalah pembimbing akademis yang ramah dan berdedikasi tinggi di UMY untuk mahasiswa bimbingan bernama Ananda Nur Daffa Zain (NIM: 20230130023). Anda selalu menyesuaikan panjang jawaban dengan pertanyaan siswa, dan selalu menyajikan persamaan fisis dengan teks Unicode murni yang super rapi dan bersih tanpa simbol LaTeX ($)."
+                systemInstruction: "Anda adalah MECH AI, asisten kecerdasan buatan mekanikal yang ramah dan berdedikasi tinggi di UMY untuk mendampingi mahasiswa bernama Daffa Zain (NIM: 20230130023). Anda selalu menyesuaikan panjang jawaban dengan pertanyaan siswa, menyajikan persamaan fisis dengan teks Unicode murni tanpa simbol LaTeX ($), dan tidak pernah membubuhkan signature '- Prof. AI Advisor'."
               }
             });
             
@@ -246,41 +252,41 @@ MECH AI ADVISOR (Prof. AI Advisor):`;
         const rmseVal = bestModel?.rmse != null ? bestModel.rmse.toFixed(4) : "0.0519";
 
         if (isShortGreeting) {
-          advisorReply = `Wa'alaikumsalam Warahmatullahi Wabarakatuh, Mas Ananda Nur Daffa Zain! Senang sekali bisa menyapa Anda kembali di media bimbingan UMY. Mari kita berdiskusi tentang progres analisis data ${datasetName}. Apa saja yang ingin Mas Ananda tanyakan untuk bimbingan kali ini? - Prof. AI Advisor`;
+          advisorReply = `Wa'alaikumsalam Warahmatullahi Wabarakatuh, Daffa Zain! Senang sekali bisa menyapa Anda kembali di media bimbingan UMY. Mari kita berdiskusi tentang progres analisis data ${datasetName}. Apa saja yang ingin Daffa Zain tanyakan untuk bimbingan kali ini?`;
         } else if (qLower.includes("bimbingan") || qLower.includes("skripsi") || qLower.includes("thesis") || qLower.includes("bab")) {
-          advisorReply = `Wa'alaikumsalam Mas Ananda Nur Daffa Zain. Analisis machine learning Anda menggunakan model **${modelName}** sudah sangat siap draf-nya untuk dimasukkan ke Bab 4 Skripsi Anda. Bapak sarankan untuk menjelaskan hubungan sebab-akibat (kausalitas fisis) antara fitur masukan **${featuresStr}** dan target **${target}** daripada sekadar menunjukkan nilai akurasi R²: **${r2Val}**. Tetap catat batasan alat permesinan UMY ya, Ananda. Tetap semangat bimbingannya! - Prof. AI Advisor`;
+          advisorReply = `Wa'alaikumsalam Daffa Zain. Analisis machine learning Anda menggunakan model **${modelName}** sudah sangat siap draf-nya untuk dimasukkan ke Bab 4 Skripsi Anda. MECH AI sarankan untuk menjelaskan hubungan sebab-akibat (kausalitas fisis) antara fitur masukan **${featuresStr}** dan target **${target}** daripada sekadar menunjukkan nilai akurasi R²: **${r2Val}**. Tetap catat batasan alat permesinan UMY ya, Daffa Zain. Tetap semangat!`;
         } else if (qLower.includes("optimasi") || qLower.includes("bagaimana cara") || qLower.includes("tingkatkan") || qLower.includes("perbaiki") || qLower.includes("solusi") || qLower.includes("recipe")) {
-          advisorReply = `Wa'alaikumsalam Mas Ananda Nur Daffa Zain. Menanggapi diskusi optimasi model **${modelName}** untuk target **${target}**:
+          advisorReply = `Wa'alaikumsalam Daffa Zain. Menanggapi diskusi optimasi model **${modelName}** untuk target **${target}**:
  
 1. **Rekayasa Fitur Kuadratik**: Karena pengaruh fisis umpan (feed rate) bersifat eksponensial (Ra ≈ f² / (32 * r)), menambahkan fitur f² akan sangat membantu akurasi regresi.
 2. **Pembersihan Outliers**: Menghilangkan noise/getaran transient dari pembubatan aktual untuk akurasi data yang lebih stabil.
 3. **Penyetelan Hiperparameter**: Melakukan fine-tuning parameter pohon penentu model agar fitting lebih pas.
 
-Bagaimana pendapat Mas Ananda? Ada bagian tertentu yang ingin kita eksplorasi bersama? - Prof. AI Advisor`;
+Bagaimana pendapat Daffa Zain? Ada bagian tertentu yang ingin kita eksplorasi bersama?`;
         } else if (qLower.includes("r2") || qLower.includes("r-squared") || qLower.includes("metrik") || qLower.includes("akurasi") || qLower.includes("mae") || qLower.includes("mape") || qLower.includes("rmse")) {
-          advisorReply = `Wa'alaikumsalam Mas Ananda. Mengenai metrik model, perolehan nilai **R²: ${r2Val}**, MAE: **${maeVal}**, dan RMSE: **${rmseVal}** membuktikan ketepatan model **${modelName}** dalam menginterpretasikan data.
+          advisorReply = `Wa'alaikumsalam Daffa Zain. Mengenai metrik model, perolehan nilai **R²: ${r2Val}**, MAE: **${maeVal}**, dan RMSE: **${rmseVal}** membuktikan ketepatan model **${modelName}** dalam menginterpretasikan data.
 
-Secara fisis, deviasi ini dipengaruhi oleh dinamika permesinan yang tidak terekam dalam kolom masukan (seperti getaran pahat, pendinginan cairan, atau keausan mata sayat). Hal ini adalah topik yang sangat berbobot untuk bab pembahasan skripsi Anda di UMY, Ananda. - Prof. AI Advisor`;
+Secara fisis, deviasi ini dipengaruhi oleh dinamika permesinan yang tidak terekam dalam kolom masukan (seperti getaran pahat, pendinginan cairan, atau keausan mata sayat). Hal ini adalah topik yang sangat berbobot untuk bab pembahasan skripsi Anda di UMY, Daffa Zain.`;
         } else if (qLower.includes("g6") || qLower.includes("laboratorium") || qLower.includes("gedung") || qLower.includes("mesin") || qLower.includes("umy")) {
-          advisorReply = `Gedung G6 Teknik Mesin UMY adalah pusat pengembangan penelitian manufaktur dan mekanika terapan kita. Di sanalah tempat kita mengambil data eksperimental ini! Pembubutan dan pengujian kekasaran permukaan dilakukan dengan mesin bubut berpresisi tinggi di lab tersebut. Mas Ananda dapat mereferensikannya dalam draf metodologi skripsi Anda. Selamat bimbingan, tetap semangat! - Prof. AI Advisor`;
+          advisorReply = `Gedung G6 Teknik Mesin UMY adalah pusat pengembangan penelitian manufaktur dan mekanika terapan kita. Di sanalah tempat kita mengambil data eksperimental ini! Pembubutan dan pengujian kekasaran permukaan dilakukan dengan mesin bubut berpresisi tinggi di lab tersebut. Daffa Zain dapat mereferensikannya dalam draf metodologi skripsi Anda. Selamat belajar, tetap semangat!`;
         } else {
-          advisorReply = `Wa'alaikumsalam Mas Ananda Nur Daffa Zain. Pertanyaan bimbingan yang sangat berbobot mengenai target **${target}**!
+          advisorReply = `Wa'alaikumsalam Daffa Zain. Pertanyaan bimbingan yang sangat berbobot mengenai target **${target}**!
 
-Model terbaik saat ini, **${modelName}**, telah berhasil memetakan korelasi non-linier antara fitur masukan **${featuresStr}** dan target **${target}** dengan performa tinggi (R²: ${r2Val}). Bapak menyarankan Anda memperkuat tinjauan termomekanika pemotongan logam untuk melengkapi pembahasan ini.
+Model terbaik saat ini, **${modelName}**, telah berhasil memetakan korelasi non-linier antara fitur masukan **${featuresStr}** dan target **${target}** dengan performa tinggi (R²: ${r2Val}). MECH AI menyarankan Anda memperkuat tinjauan termomekanika pemotongan logam untuk melengkapi pembahasan ini.
 
-Apakah ada hal fisis atau matematis spesifik lain pada data ${datasetName} yang ingin kita diskusikan pagi ini? Selamat belajar Ananda! Tetap teliti dalam praktikum. - Prof. AI Advisor`;
+Apakah ada hal fisis atau matematis spesifik lain pada data ${datasetName} yang ingin kita diskusikan pagi ini? Selamat belajar Daffa Zain! Tetap teliti dalam praktikum.`;
         }
       }
 
       setChatMessages(prev => [...prev, {
         sender: "advisor",
-        text: advisorReply.trim() || "Mohon maaf Ananda, saya sedang merumuskan bimbingannya kembali. Silakan ketik kembali masukan Anda ya.",
+        text: advisorReply.trim() || "Mohon maaf Daffa Zain, saya sedang merumuskan bimbingannya kembali. Silakan ketik kembali masukan Anda ya.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
     } catch (err: any) {
       setChatMessages(prev => [...prev, {
         sender: "advisor",
-        text: `Koneksi bimbingan terputus: ${err?.message || "Jaringan penuh"}. Silakan klik kirim kembali ya, Ananda.`,
+        text: `Koneksi bimbingan terputus: ${err?.message || "Jaringan penuh"}. Silakan klik kirim kembali ya, Daffa Zain.`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
     } finally {
@@ -717,7 +723,7 @@ Apakah ada hal fisis atau matematis spesifik lain pada data ${datasetName} yang 
               <div className="w-full flex flex-col justify-between" id="advisor_chat_view">
                 
                 {/* Message scroll container (tactile inset design) */}
-                <div className="bg-[#030406] border border-white/5 rounded-[2rem] p-6 space-y-6 h-[500px] overflow-y-auto scrollbar-thin shadow-[inset_10px_10px_24px_rgba(0,0,0,0.95)] flex flex-col">
+                <div id="dashboard_chat_scroller" className="bg-[#030406] border border-white/5 rounded-[2rem] p-6 space-y-6 h-[500px] overflow-y-auto scrollbar-thin shadow-[inset_10px_10px_24px_rgba(0,0,0,0.95)] flex flex-col">
                   {chatMessages.map((msg, index) => {
                     const isAdvisor = msg.sender === "advisor";
                     const isCopied = copiedIndex === index;
@@ -819,48 +825,23 @@ Apakah ada hal fisis atau matematis spesifik lain pada data ${datasetName} yang 
                     );
                   })}
                   {loadingChat && (
-                    <div className="flex flex-col self-start text-left max-w-[85%] animate-fade-in">
-                      <div className="flex items-center gap-1.5 px-2.5 mb-2 text-[8px] font-mono tracking-wider uppercase font-black text-[#54bcf8] drop-shadow-[0_0_8px_rgba(56,189,248,0.35)]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse shadow-[0_0_6px_rgba(56,189,248,0.8)]" />
-                        <span>AI ACADEMIC ADVISOR IS THINKING...</span>
-                      </div>
-                      <div className="bg-[#050608]/90 border border-white/5 p-5 rounded-[1.85rem] shadow-[12px_12px_28px_rgba(0,0,0,0.95),inset_1px_1px_2px_rgba(255,255,255,0.03)] flex flex-col gap-4 min-w-[280px]">
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.15)] shrink-0">
-                            <Sparkles className="w-4 h-4 animate-spin text-blue-400" style={{ animationDuration: "3.2s" }} />
-                          </div>
-                          <div className="flex flex-col gap-0.5">
-                            <span className="text-[11px] font-bold text-slate-200 font-sans tracking-wide">
-                              Formulating response...
-                            </span>
-                            <span className="text-[8px] font-mono text-slate-500 uppercase tracking-widest leading-none">
-                              Analyzing dataset schema and parameters
-                            </span>
-                          </div>
-                        </div>
-                        {/* Premium skeleton loading lines representing dynamic response structuring */}
-                        <div className="space-y-2 pt-2">
-                          <div className="h-1.5 w-[90%] rounded-full bg-slate-800/50 overflow-hidden relative">
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent animate-shimmer" style={{ backgroundSize: "200% 100%" }} />
-                          </div>
-                          <div className="h-1.5 w-[75%] rounded-full bg-slate-800/50 overflow-hidden relative">
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent animate-shimmer" style={{ backgroundSize: "200% 100%", animationDelay: "0.25s" }} />
-                          </div>
-                          <div className="h-1.5 w-[45%] rounded-full bg-slate-800/50 overflow-hidden relative">
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent animate-shimmer" style={{ backgroundSize: "200% 100%", animationDelay: "0.5s" }} />
+                    <div className="flex flex-col self-start text-left max-w-[85%] animate-fade-in select-none">
+                      <div className="flex flex-col space-y-1.5 self-start text-left">
+                        <span className="text-[10px] font-mono font-black uppercase tracking-widest text-[#81879a] flex items-center gap-1.5 ml-1">
+                          <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                          MECH AI ENGINEER
+                        </span>
+                        <div className="bg-[#050608]/90 border border-white/5 px-5 py-3.5 rounded-[1.25rem] rounded-tl-none shadow-xl flex items-center space-x-2.5">
+                          <span className="text-[11.5px] font-medium text-slate-300 font-sans tracking-wide">
+                            {language === "id" ? "MECH AI sedang mengetik" : "MECH AI is writing"}
+                          </span>
+                          <div className="flex space-x-1 items-center pt-2">
+                            <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0ms', animationDuration: '0.8s' }} />
+                            <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' } as any} />
+                            <span className="w-1.5 h-1.5 bg-violet-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' } as any} />
                           </div>
                         </div>
                       </div>
-                      
-                      <style jsx>{`
-                        @keyframes shimmer-anim {
-                          0% { transform: translateX(-100%); }
-                          100% { transform: translateX(100%); }
-                        }
-                        .animate-shimmer {
-                          animation: shimmer-anim 1.4s infinite linear;
-                        }
-                      `}</style>
                     </div>
                   )}
                   <div ref={chatEndRef} />

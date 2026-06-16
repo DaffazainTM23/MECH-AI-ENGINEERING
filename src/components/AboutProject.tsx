@@ -8,12 +8,18 @@ import { Map, MapMarker, MarkerContent, MarkerLabel, MarkerPopup, MapControls } 
 import WorkflowSection from "./WorkflowSection";
 import EthicsSection from "./EthicsSection";
 import { useLanguage } from "../context/LanguageContext";
+import { audio } from "../utils/audioService";
 
 export default function AboutProject() {
   const { t } = useLanguage();
   const [subTab, setSubTab] = useState<"about" | "workflow" | "ethics">("about");
   // Precise coordinate of Gedung G6 Teknik Mesin UMY
   const umyCoords = { lng: 110.3203470953695, lat: -7.80790378741042 };
+
+  const handleSubTabChange = (targetTab: "about" | "workflow" | "ethics") => {
+    audio.playTabSwitch();
+    setSubTab(targetTab);
+  };
 
   return (
     <div className="space-y-8 py-4 text-left font-sans select-none" id="about_project_viewport">
@@ -42,7 +48,7 @@ export default function AboutProject() {
         <div className="grid grid-cols-3 gap-2 w-full max-w-3xl">
           {/* SubTab 1: Developer Core */}
           <button
-            onClick={() => setSubTab("about")}
+            onClick={() => handleSubTabChange("about")}
             className={`cursor-pointer relative py-3 px-4 rounded-xl text-[10px] sm:text-xs font-black tracking-wider uppercase flex items-center justify-center gap-2 transition-all duration-300 ${
               subTab === "about"
                 ? "bg-slate-900 border border-cyan-400/30 text-cyan-300 shadow-[inset_4px_4px_10px_rgba(0,0,0,0.9),_2px_2px_4px_rgba(6,182,212,0.1)] font-extrabold translate-y-[1px]"
@@ -59,7 +65,7 @@ export default function AboutProject() {
 
           {/* SubTab 2: SOP Workflow Map */}
           <button
-            onClick={() => setSubTab("workflow")}
+            onClick={() => handleSubTabChange("workflow")}
             className={`cursor-pointer relative py-3 px-4 rounded-xl text-[10px] sm:text-xs font-black tracking-wider uppercase flex items-center justify-center gap-2 transition-all duration-300 ${
               subTab === "workflow"
                 ? "bg-slate-900 border border-indigo-400/30 text-indigo-300 shadow-[inset_4px_4px_10px_rgba(0,0,0,0.9),_2px_2px_4px_rgba(99,102,241,0.1)] font-extrabold translate-y-[1px]"
@@ -76,7 +82,7 @@ export default function AboutProject() {
 
           {/* SubTab 3: Ethics Core */}
           <button
-            onClick={() => setSubTab("ethics")}
+            onClick={() => handleSubTabChange("ethics")}
             className={`cursor-pointer relative py-3 px-4 rounded-xl text-[10px] sm:text-xs font-black tracking-wider uppercase flex items-center justify-center gap-2 transition-all duration-300 ${
               subTab === "ethics"
                 ? "bg-slate-900 border border-emerald-400/30 text-emerald-300 shadow-[inset_4px_4px_10px_rgba(0,0,0,0.9),_2px_2px_4px_rgba(16,185,129,0.1)] font-extrabold translate-y-[1px]"
@@ -117,7 +123,7 @@ export default function AboutProject() {
                       <div className="w-full h-full rounded-xl overflow-hidden relative">
                         <img
                           src="https://res.cloudinary.com/df0razmlr/image/upload/v1771712564/PP_WEB_ianvph.jpg"
-                          alt="Ananda Nur Daffa Zain"
+                          alt="Daffa Zain"
                           referrerPolicy="no-referrer"
                           className="w-full h-full object-cover select-none filter contrast-[105%] saturate-[102%]"
                           onError={(e) => {
@@ -139,7 +145,7 @@ export default function AboutProject() {
                       {/* Prominent Multi-Layer Raised 3D Name Panel */}
                       <div className="p-3.5 rounded-2xl bg-[#03050c] border border-cyan-500/20 shadow-[4px_4px_10px_rgba(0,0,0,0.9),_-2px_-2px_6px_rgba(255,255,255,0.01),inset_1px_1px_1px_rgba(255,255,255,0.05)] transform hover:-translate-y-0.5 transition-transform">
                         <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase leading-none font-sans drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] bg-gradient-to-r from-cyan-400 via-slate-100 to-indigo-300 bg-clip-text text-transparent">
-                          Ananda Nur Daffa Zain
+                          Daffa Zain
                         </h3>
                       </div>
 
@@ -272,22 +278,11 @@ export default function AboutProject() {
                 
                 {/* Massive Spacious Canvas with Satellite styling representation */}
                 <div className="w-full h-[410px] rounded-2.5xl overflow-hidden border border-white/15 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.95),0_10px_40px_rgba(0,0,0,0.85)] relative bg-[#010103]">
-                  {/* Floating Glassmorphism HUD Overlay */}
-                  <div className="absolute top-4 left-4 z-10 backdrop-blur-md bg-slate-950/65 border border-white/10 rounded-2xl p-4.5 max-w-xs text-left shadow-2xl">
-                    <span className="text-[9px] uppercase tracking-wider font-mono text-cyan-400 font-extrabold block">G6 ARCHITECTURE HUD</span>
-                    <h5 className="text-white text-xs font-black font-sans uppercase mt-1">Teknik Mesin Laboratory</h5>
-                    <p className="text-[10px] text-slate-350 font-medium leading-relaxed font-sans mt-1.5">
-                      Integrated heavy industry simulation twin environment, fluid dynamics, and thermodynamics testing facilities inside UMY Kampus Terpadu.
-                    </p>
-                    <div className="flex items-center gap-2 mt-3.5 text-[8.5px] font-mono text-cyan-200 uppercase bg-[#03050a]/70 px-2 py-1.5 rounded-lg border border-white/5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      <span>SATELLITE IMAGE OPERATIONAL</span>
-                    </div>
-                  </div>
+                  {/* Floating Glassmorphism HUD Overlay removed to keep satellite view clean */}
 
                   <Map 
                     center={[umyCoords.lng, umyCoords.lat]} 
-                    zoom={18.5} 
+                    zoom={15.0} 
                     pitch={0}
                     bearing={0}
                     className="w-full h-full"
@@ -310,7 +305,7 @@ export default function AboutProject() {
                             type: "raster",
                             source: "satellite-tiles",
                             minzoom: 0,
-                            maxzoom: 20
+                            maxzoom: 17
                           }
                         ]
                       },
@@ -332,7 +327,7 @@ export default function AboutProject() {
                             type: "raster",
                             source: "satellite-tiles",
                             minzoom: 0,
-                            maxzoom: 20
+                            maxzoom: 17
                           }
                         ]
                       }
@@ -352,36 +347,41 @@ export default function AboutProject() {
                         </MarkerLabel>
                       </MarkerContent>
                       
-                      <MarkerPopup className="w-64 p-0 border border-white/15 bg-slate-950/98 backdrop-blur-lg overflow-hidden rounded-xl shadow-3xl text-left">
+                      <MarkerPopup className="w-64 p-0 border border-white/10 bg-slate-950/98 backdrop-blur-xl overflow-hidden rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] text-left select-none">
                         <div className="relative h-28 overflow-hidden">
                           <img 
                             src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=320&h=180&fit=crop" 
                             alt="Mechanical Lab G6" 
-                            className="h-full w-full object-cover filter brightness-[85%] hover:scale-105 transition-all duration-500"
+                            className="h-full w-full object-cover filter brightness-[80%] scale-102 hover:scale-105 transition-all duration-700"
                           />
-                          <div className="absolute top-2 left-2 bg-cyan-500/95 text-slate-950 text-[8.5px] font-mono px-2 py-0.5 rounded font-black tracking-widest uppercase shadow-md">
-                            {t("about.lab_building_tag", "BUILDING G6")}
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-black/35" />
+                          <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-slate-950/80 backdrop-blur-md text-cyan-400 text-[8px] font-mono px-2 py-0.5 rounded-full font-black tracking-widest uppercase border border-white/5 shadow-md">
+                            <span className="w-1 h-1 rounded-full bg-cyan-400 animate-pulse" />
+                            <span>{t("about.lab_building_tag", "BUILDING G6")}</span>
                           </div>
                         </div>
-                        <div className="p-3.5 space-y-2 text-left">
-                          <h4 className="text-white text-xs font-black leading-snug uppercase tracking-tight">{t("about.map_label", "Gedung G6 Teknik Mesin")}</h4>
-                          <p className="text-[10px] text-slate-400 leading-normal font-semibold font-sans">{t("about.map_dept", "Civil & Mechanical Engineering Department, FT-UMY")}</p>
-                          
-                          <div className="flex items-center gap-1.5 text-[10px] text-slate-450 pt-1 font-bold">
-                            <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                            <span className="font-extrabold text-white">5.0</span>
-                            <span className="font-mono">({t("about.map_desc", "Faculty Lab Suite")})</span>
+                        <div className="p-3.5 space-y-2.5 text-left bg-gradient-to-b from-slate-950/30 to-slate-950/95 relative z-10">
+                          <div className="space-y-0.5">
+                            <h4 className="text-white text-[11px] font-black leading-snug uppercase tracking-wider">{t("about.map_label", "Gedung G6 Teknik Mesin")}</h4>
+                            <p className="text-[9px] text-slate-400 leading-normal font-medium font-sans">{t("about.map_dept", "Civil & Mechanical Engineering, FT-UMY")}</p>
                           </div>
                           
-                          <div className="flex gap-2 pt-1">
+                          <div className="flex items-center gap-1 text-[8.5px] font-mono font-bold tracking-wider text-cyan-400 bg-cyan-500/5 border border-cyan-400/10 px-2 py-0.5 w-max rounded">
+                            <Star className="w-2.5 h-2.5 text-amber-500 fill-amber-500" />
+                            <span>5.0</span>
+                            <span className="text-slate-450 uppercase">({t("about.map_desc", "CORE RESEARCH")})</span>
+                          </div>
+                          
+                          <div className="pt-1">
                             <a 
                               href="https://maps.app.goo.gl/rxYG5GPaj8AezbNa7"
                               target="_blank"
                               rel="noreferrer"
-                              className="inline-flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg bg-cyan-500 px-3 text-[10px] font-black text-slate-950 hover:bg-cyan-400 transition-colors cursor-pointer shadow-md shadow-cyan-500/20 uppercase"
+                              onClick={() => audio.playClick()}
+                              className="inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-xl bg-cyan-400 px-3 text-[9px] font-bold text-slate-950 hover:bg-cyan-300 transition-all cursor-pointer shadow-[0_4px_12px_rgba(34,211,238,0.2)] uppercase tracking-wider active:scale-[0.98]"
                             >
-                              <Navigation className="w-3 h-3" />
-                              {t("about.directions", "Get Path (G6 Building)")}
+                              <Navigation className="w-2.5 h-2.5 fill-current" />
+                              <span>{t("about.directions", "GET DIRECTIONS")}</span>
                             </a>
                           </div>
                         </div>

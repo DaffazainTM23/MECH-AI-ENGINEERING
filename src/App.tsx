@@ -278,7 +278,8 @@ export default function App() {
       ensembleModelInstance: args.ensembleModelInstance || null,
       selectedModels: args.selectedModels
     }));
-    // Clean, normal flow: let user stay on their current AutoML workspace without automatic redirection lock.
+    // Automatically switch to the model performance evaluation dashboard
+    setActiveTab("performance");
   };
 
   // Render tab component content

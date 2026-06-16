@@ -12,7 +12,8 @@ import { useLanguage } from "../context/LanguageContext";
 export default function AboutProject() {
   const { t } = useLanguage();
   const [subTab, setSubTab] = useState<"about" | "workflow" | "ethics">("about");
-  const umyCoords = { lng: 110.322301, lat: -7.812328 };
+  // Precise coordinate of Gedung G6 Teknik Mesin UMY
+  const umyCoords = { lng: 110.3203470953695, lat: -7.80790378741042 };
 
   return (
     <div className="space-y-8 py-4 text-left font-sans select-none" id="about_project_viewport">
@@ -262,7 +263,7 @@ export default function AboutProject() {
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400"></span>
                     </span>
-                    <span>{t("about.map_title", "SUPERVISING CAMPUS COORDINATE SATELLITE 3D VIEW")}</span>
+                    <span>{t("about.map_title", "SUPERVISING CAMPUS COORDINATE HD SATELLITE MAP")}</span>
                   </h4>
                   <span className="text-[8.5px] font-mono font-black text-cyan-450 bg-cyan-500/10 px-2.5 py-1 rounded-md uppercase tracking-wider">
                     GEDUNG G6 TEKNIK MESIN UMY
@@ -280,15 +281,15 @@ export default function AboutProject() {
                     </p>
                     <div className="flex items-center gap-2 mt-3.5 text-[8.5px] font-mono text-cyan-200 uppercase bg-[#03050a]/70 px-2 py-1.5 rounded-lg border border-white/5">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      <span>3D CAMERA SENSOR OPERATIONAL</span>
+                      <span>SATELLITE IMAGE OPERATIONAL</span>
                     </div>
                   </div>
 
                   <Map 
                     center={[umyCoords.lng, umyCoords.lat]} 
                     zoom={18.5} 
-                    pitch={58}
-                    bearing={-25}
+                    pitch={0}
+                    bearing={0}
                     className="w-full h-full"
                     styles={{
                       dark: {
@@ -374,7 +375,7 @@ export default function AboutProject() {
                           
                           <div className="flex gap-2 pt-1">
                             <a 
-                              href="https://maps.app.goo.gl/rukxZYeRAysGpHiaA"
+                              href="https://maps.app.goo.gl/rxYG5GPaj8AezbNa7"
                               target="_blank"
                               rel="noreferrer"
                               className="inline-flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg bg-cyan-500 px-3 text-[10px] font-black text-slate-950 hover:bg-cyan-400 transition-colors cursor-pointer shadow-md shadow-cyan-500/20 uppercase"
@@ -392,9 +393,9 @@ export default function AboutProject() {
 
               {/* Geographic Coordination metadata footer */}
               <div className="flex items-center justify-between text-[9px] font-mono text-slate-500 mt-4.5 pt-3.5 border-t border-white/5">
-                <span className="font-bold tracking-wider">COORDS -7.812328, 110.322301 | KASIHAN BANTUL D.I. YOGYAKARTA</span>
+                <span className="font-bold tracking-wider">COORDS -7.807904, 110.320347 | GEDUNG G6 TEKNIK MESIN UMY</span>
                 <a 
-                  href="https://maps.app.goo.gl/rukxZYeRAysGpHiaA" 
+                  href="https://maps.app.goo.gl/rxYG5GPaj8AezbNa7" 
                   target="_blank"  
                   rel="noreferrer"
                   className="text-cyan-400 font-extrabold hover:underline flex items-center space-x-1 uppercase"

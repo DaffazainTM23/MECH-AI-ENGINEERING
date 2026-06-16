@@ -130,6 +130,7 @@ export default function DatasetUpload({
   const [compileLogs, setCompileLogs] = useState<string[]>([]);
   const [championPerformance, setChampionPerformance] = useState<ModelPerformance | null>(null);
   const [trainedPerformances, setTrainedPerformances] = useState<ModelPerformance[]>([]);
+  const [compilationResult, setCompilationResult] = useState<any>(null);
 
   // Safe status alignment effects without aggressive forced centering scroll locks
   useEffect(() => {
@@ -876,6 +877,8 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
             ensembleModelInstance: result.ensembleModelInstance,
             selectedModels: activeModelChoices
           };
+
+          setCompilationResult(propsCallbackArgs);
 
           if (onTrainingComplete) {
             onTrainingComplete(propsCallbackArgs);
@@ -1951,16 +1954,29 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
                         labelIdle="Buka Panel Evaluasi"
                         labelActive="Loading"
                         onClick={() => {
-                          if (championPerformance) {
-                            onTrainingComplete({
-                              performances: trainedPerformances,
-                              bestModelName: championPerformance.modelName,
-                              featureImportances: trainedPerformances.find(p => p.modelName === championPerformance.modelName)?.importanceMap || {},
-                              testActualValues: trainedPerformances.find(p => p.modelName === championPerformance.modelName)?.testActual || [],
-                              testPredictedValues: trainedPerformances.find(p => p.modelName === championPerformance.modelName)?.testPred || [],
-                              bestModelInstance: trainedPerformances.find(p => p.modelName === championPerformance.modelName)?.modelObject || null,
-                              selectedModels: activeModelChoices
-                            });
+                          if (onTrainingComplete) {
+                            if (compilationResult) {
+                              onTrainingComplete(compilationResult);
+                            } else if (championPerformance) {
+                              // Safe fallback: reconstruct full arguments on the fly
+                              try {
+                                const preprocessed = preprocessDataset(currentDataset.rows, selectedFeatures, selectedTarget);
+                                const result = runModelTraining(preprocessed, activeModelChoices);
+                                onTrainingComplete({
+                                  preprocessingResult: preprocessed,
+                                  performances: result.performances,
+                                  bestModelName: result.bestModelName,
+                                  featureImportances: result.featureImportances,
+                                  testActualValues: result.predictions.testActual,
+                                  testPredictedValues: result.predictions.testPredicted,
+                                  bestModelInstance: result.bestModelInstance,
+                                  ensembleModelInstance: result.ensembleModelInstance,
+                                  selectedModels: activeModelChoices
+                                });
+                              } catch (err: any) {
+                                console.error("Fallback compilation failed during Buka Panel Evaluasi clicked:", err);
+                              }
+                            }
                           }
                         }}
                       />

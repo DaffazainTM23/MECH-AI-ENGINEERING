@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        try {
+          if (typeof window !== 'undefined') {
+            if (typeof window.FormData === 'undefined') {
+              window.FormData = function FormData() {};
+            }
+            if (window.FormData.prototype && !window.FormData.prototype.keys) {
+              window.FormData.prototype.keys = function() {
+                var keysArray = [];
+                if (this._data) {
+                  for (var k in this._data) keysArray.push(k);
+                }
+                var index = 0;
+                return {
+                  next: function() {
+                    return index < keysArray.length 
+                      ? { value: keysArray[index++], done: false } 
+                      : { value: undefined, done: true };
+                  },
+                  [Symbol.iterator]: function() { return this; }
+                };
+              };
+            }
+          }
+          
+          var originalFetch = window.fetch || (typeof globalThis !== 'undefined' ? globalThis.fetch : null);
+          if (originalFetch) {
+            var currentFetch = originalFetch;
+            var desc = Object.getOwnPropertyDescriptor(window, 'fetch');
+            if (!desc || desc.configurable) {
+              Object.defineProperty(window, 'fetch', {
+                get: function() { return currentFetch; },
+                set: function(val) { currentFetch = val; },
+                configurable: true,
+                enumerable: true
+              });
+            }
+            if (typeof globalThis !== 'undefined') {
+              var descGlobal = Object.getOwnPropertyDescriptor(globalThis, 'fetch');
+              if (!descGlobal || descGlobal.configurable) {
+                Object.defineProperty(globalThis, 'fetch', {
+                  get: function() { return currentFetch; },
+                  set: function(val) { currentFetch = val; },
+                  configurable: true,
+                  enumerable: true
+                });
+              }
+            }
+          }
+        } catch (e) {
+          console.warn("Compatibility patch warning:", e);
+        }
+      })();
+    </script>
+    <title>Remix: MechAutoML AI — Universitas Muhammadiyah Yogyakarta</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useLanguage } from "../../src/context/LanguageContext"
 import {
   AlertCircleIcon,
   CheckIcon,
@@ -556,6 +557,16 @@ export interface FileUploadProps {
 
 // ---------- Component ----------
 export default function FileUpload({ onFileSelect, onFilesChange, onFilesAdded, accept = "*" }: FileUploadProps) {
+  let t = (key: string, def?: string) => def || key;
+  try {
+    const lang = useLanguage();
+    if (lang && lang.t) {
+      t = lang.t;
+    }
+  } catch (err) {
+    // robust fallback
+  }
+
   // Tunables
   const maxSize = 20 * 1024 * 1024 // 20MB
   const maxFiles = 20
@@ -709,9 +720,9 @@ export default function FileUpload({ onFileSelect, onFilesChange, onFilesAdded, 
             <UploadIcon className="size-6 text-slate-400 group-hover:text-white transition-colors animate-pulse" aria-hidden="true" />
           </div>
           <div className="space-y-1">
-            <p className="font-semibold text-white text-base">Drop your CSV, Excel, or ZIP files here</p>
+            <p className="font-semibold text-white text-base">{t("fu.drop_title", "Drop your CSV, Excel, or ZIP files here")}</p>
             <p className="text-slate-400 text-xs">
-              Fully supports automated imputer parsing · Max {formatBytes(maxSize)} per dataset
+              {t("fu.drop_subtitle", "Fully supports automated imputer parsing · Max {size} per dataset").replace("{size}", formatBytes(maxSize))}
             </p>
           </div>
           <Button 
@@ -721,7 +732,7 @@ export default function FileUpload({ onFileSelect, onFilesChange, onFilesAdded, 
             onClick={openFileDialog}
           >
             <UploadCloudIcon className="-ms-1 mr-2 size-4 text-indigo-400" aria-hidden="true" />
-            Ingest worksheets
+            {t("fu.ingest_button", "Ingest worksheets")}
           </Button>
         </div>
       </div>
@@ -731,7 +742,7 @@ export default function FileUpload({ onFileSelect, onFilesChange, onFilesAdded, 
         <div className="flex flex-wrap items-center justify-between gap-3 bg-zinc-950/40 border border-white/5 rounded-2xl p-3.5 mt-2">
           <div className="flex items-center gap-3">
             <h3 className="text-xs font-semibold text-slate-200">
-              Active Session Inbound files <span className="text-indigo-400">({files.length})</span>
+              {t("fu.active_session", "Active Session Inbound files")} <span className="text-indigo-400">({files.length})</span>
             </h3>
             <span className="text-slate-500 text-xs font-mono">• {formatBytes(totalSize)}</span>
           </div>
@@ -742,7 +753,7 @@ export default function FileUpload({ onFileSelect, onFilesChange, onFilesAdded, 
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search ingest queue..."
+                placeholder={t("fu.search_placeholder", "Search ingest queue...")}
                 className="bg-black/40 ring-offset-background border-white/10 placeholder:text-slate-500 h-8 w-44 rounded-xl border pl-8 pr-2 text-xs text-white focus:outline-none focus:border-indigo-500 transition-colors"
                 aria-label="Search files"
               />
@@ -807,7 +818,7 @@ export default function FileUpload({ onFileSelect, onFilesChange, onFilesAdded, 
                   aria-label={allSelected ? "Unselect all" : "Select all"}
                 />
                 <span className="hover:text-white transition-colors">
-                  {selected.size} of {filtered.length} loaded files selected
+                  {t("fu.selected_count", "{selected} of {total} loaded files selected").replace("{selected}", String(selected.size)).replace("{total}", String(filtered.length))}
                 </span>
               </label>
             </div>
@@ -820,7 +831,7 @@ export default function FileUpload({ onFileSelect, onFilesChange, onFilesAdded, 
                 disabled={noneSelected}
               >
                 <Trash2Icon className="-ms-0.5 mr-1.5 size-3.5 text-rose-450 opacity-80" aria-hidden="true" />
-                Deregister Selected
+                {t("fu.deregister_selected", "Deregister Selected")}
               </Button>
             </div>
           </div>
@@ -833,10 +844,10 @@ export default function FileUpload({ onFileSelect, onFilesChange, onFilesAdded, 
                     <TableHead className="h-9 w-10 py-2">
                       <span className="sr-only">Select</span>
                     </TableHead>
-                    <TableHead className="h-9 py-2 text-white font-bold font-mono">Worksheet Pipeline</TableHead>
-                    <TableHead className="h-9 py-2 text-white font-bold font-mono">Subtype</TableHead>
-                    <TableHead className="h-9 py-2 text-white font-bold font-mono">Bytes Size</TableHead>
-                    <TableHead className="h-9 w-40 py-2 text-right text-white font-bold font-mono">Operations</TableHead>
+                    <TableHead className="h-9 py-2 text-white font-bold font-mono">{t("fu.table_header_pipeline", "Worksheet Pipeline")}</TableHead>
+                    <TableHead className="h-9 py-2 text-white font-bold font-mono">{t("fu.table_header_subtype", "Subtype")}</TableHead>
+                    <TableHead className="h-9 py-2 text-white font-bold font-mono">{t("fu.table_header_size", "Bytes Size")}</TableHead>
+                    <TableHead className="h-9 w-40 py-2 text-right text-white font-bold font-mono">{t("fu.table_header_operations", "Operations")}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody className="text-[13px]">

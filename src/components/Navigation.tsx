@@ -225,7 +225,7 @@ export default function Navigation({ activeTab, setActiveTab, datasetLoaded, mod
             />
           </div>
           <div className="hidden xl:flex flex-col text-left">
-            <span className="text-[10px] text-white font-black leading-none tracking-tight">Daffa Zain</span>
+            <span className="text-[10px] text-white font-black leading-none tracking-tight">ANANDA NUR DAFFA ZAIN</span>
             <span className="text-[7.5px] text-indigo-400 font-mono font-extrabold uppercase tracking-widest mt-1">NIM: 20230130023</span>
           </div>
         </div>
@@ -277,7 +277,7 @@ export default function Navigation({ activeTab, setActiveTab, datasetLoaded, mod
                         />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-[11px] text-white font-extrabold leading-tight">Daffa Zain</span>
+                        <span className="text-[11px] text-white font-extrabold leading-tight">ANANDA NUR DAFFA ZAIN</span>
                         <span className="text-[8px] text-indigo-400 font-mono font-bold uppercase tracking-wider mt-0.5">NIM: 20230130023</span>
                       </div>
                     </div>

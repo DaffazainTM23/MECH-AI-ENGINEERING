@@ -144,8 +144,8 @@ export default function AboutProject() {
 
                       {/* Prominent Multi-Layer Raised 3D Name Panel */}
                       <div className="p-3.5 rounded-2xl bg-[#03050c] border border-cyan-500/20 shadow-[4px_4px_10px_rgba(0,0,0,0.9),_-2px_-2px_6px_rgba(255,255,255,0.01),inset_1px_1px_1px_rgba(255,255,255,0.05)] transform hover:-translate-y-0.5 transition-transform">
-                        <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase leading-none font-sans drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] bg-gradient-to-r from-cyan-400 via-slate-100 to-indigo-300 bg-clip-text text-transparent">
-                          Daffa Zain
+                        <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase leading-all font-sans drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] bg-gradient-to-r from-cyan-400 via-slate-100 to-indigo-300 bg-clip-text text-transparent">
+                          ANANDA NUR DAFFA ZAIN
                         </h3>
                       </div>
 
@@ -177,7 +177,7 @@ export default function AboutProject() {
                     </div>
                     <div className="flex items-center justify-between text-[11px] py-1 font-semibold mb-0.5">
                       <span className="text-slate-450">{t("about.academic_focus", "Scholarly Major")}</span>
-                      <span className="text-indigo-400 text-right font-extrabold font-mono uppercase tracking-widest">Mechanical Informatics (S1)</span>
+                      <span className="text-indigo-400 text-right font-extrabold font-mono uppercase tracking-widest">S1 TEKNIK MESIN UMY</span>
                     </div>
                   </div>
                 </div>
@@ -238,7 +238,7 @@ export default function AboutProject() {
                     </div>
                     <div className="text-left">
                       <p className="text-[8px] text-slate-500 font-mono font-bold uppercase leading-none mb-0.5">{t("about.focus_label", "Campus Focus")}</p>
-                      <p className="text-[10px] text-slate-205 font-extrabold uppercase leading-tight tracking-wide">UMY Teknik Mesin</p>
+                      <p className="text-[10px] text-slate-205 font-extrabold uppercase leading-tight tracking-wide">{t("about.focus_value", "UMY Teknik Mesin")}</p>
                     </div>
                   </div>
 
@@ -248,7 +248,7 @@ export default function AboutProject() {
                     </div>
                     <div className="text-left">
                       <p className="text-[8px] text-slate-500 font-mono font-bold uppercase leading-none mb-0.5">{t("about.integrity_label", "Engine Integrity")}</p>
-                      <p className="text-[10px] text-slate-205 font-extrabold uppercase leading-tight tracking-wide">100% Real Datasets</p>
+                      <p className="text-[10px] text-slate-205 font-extrabold uppercase leading-tight tracking-wide">{t("about.integrity_value", "100% Real Datasets")}</p>
                     </div>
                   </div>
                 </div>
@@ -419,7 +419,7 @@ export default function AboutProject() {
                   <span>{t("about.contact_title", "DEVELOPER INTERACTIVE CONNECT")}</span>
                 </h4>
                 <p className="text-xs text-slate-400 leading-relaxed mb-5.5 font-medium">
-                  {t("about.contact_desc", "Connect directly with Ananda Nur Daffa Zain for code validation, academic review, and engineering enquiries:")}
+                  {t("about.contact_desc", "Connect directly with ANANDA NUR DAFFA ZAIN for code validation, academic review, and engineering enquiries:")}
                 </p>
               </div>
 

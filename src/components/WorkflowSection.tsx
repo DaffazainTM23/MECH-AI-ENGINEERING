@@ -3,71 +3,82 @@ import {
   Settings, Cpu, Trophy, BarChart3, History 
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function WorkflowSection() {
+  const { t } = useLanguage();
+
   const steps = [
     {
       id: "01",
-      title: "Dataset Upload",
-      desc: "Users stream engineering spreadsheets in CSV or XLSX format containing empirical testing data logs.",
+      titleKey: "workflow.step1.title",
+      defaultTitle: "Dataset Upload",
+      descKey: "workflow.step1.desc",
+      defaultDesc: "Users stream engineering spreadsheets in CSV or XLSX format containing empirical testing data logs.",
       icon: UploadCloud,
-      color: "from-blue-500/20 to-indigo-500/5",
       iconColor: "text-blue-400"
     },
     {
       id: "02",
-      title: "Dataset Preview",
-      desc: "Automatic structural mapping triggers to determine cell counts, categories, and null distributions.",
+      titleKey: "workflow.step2.title",
+      defaultTitle: "Dataset Preview",
+      descKey: "workflow.step2.desc",
+      defaultDesc: "Automatic structural mapping triggers to determine cell counts, categories, and null distributions.",
       icon: Eye,
-      color: "from-purple-500/20 to-indigo-500/5",
       iconColor: "text-purple-400"
     },
     {
       id: "03",
-      title: "Feature & Target Selection",
-      desc: "Students define separate training variables (X) and designate a continuous numeric prediction target (Y).",
+      titleKey: "workflow.step3.title",
+      defaultTitle: "Feature & Target Selection",
+      descKey: "workflow.step3.desc",
+      defaultDesc: "Students define separate training variables (X) and designate a continuous numeric prediction target (Y).",
       icon: Sliders,
-      color: "from-sky-500/20 to-indigo-500/5",
       iconColor: "text-sky-400"
     },
     {
       id: "04",
-      title: "Data Preprocessing",
-      desc: "Automatic mean cell imputations and string category label encoders are established to secure mathematical integrity.",
+      titleKey: "workflow.step4.title",
+      defaultTitle: "Data Preprocessing",
+      descKey: "workflow.step4.desc",
+      defaultDesc: "Automatic mean cell imputations and string category label encoders are established to secure mathematical integrity.",
       icon: Settings,
-      color: "from-indigo-500/20 to-purple-500/5",
       iconColor: "text-indigo-400"
     },
     {
       id: "05",
-      title: "Model Training",
-      desc: "MECH AI's ML engine trains Extra Trees, Oblivious CatBoost, and loss-regularized XGBoost regressors on 80% splits.",
+      titleKey: "workflow.step5.title",
+      defaultTitle: "Model Training",
+      descKey: "workflow.step5.desc",
+      defaultDesc: "MECH AI's ML engine trains Extra Trees, Oblivious CatBoost, and loss-regularized XGBoost regressors on 80% splits.",
       icon: Cpu,
-      color: "from-pink-500/20 to-indigo-500/5",
       iconColor: "text-pink-400"
     },
     {
       id: "06",
-      title: "Model Evaluation",
-      desc: "Calculations resolve R², MAE, RMSE, and MAPE scores on the withheld 20% validation splits.",
+      titleKey: "workflow.step6.title",
+      defaultTitle: "Model Evaluation",
+      descKey: "workflow.step6.desc",
+      defaultDesc: "Calculations resolve R², MAE, RMSE, and MAPE scores on the withheld 20% validation splits.",
       icon: Trophy,
-      color: "from-emerald-500/20 to-indigo-500/5",
       iconColor: "text-emerald-400"
     },
     {
       id: "07",
-      title: "Visual Analytics",
-      desc: "The system plots interactive scatter charts, horizontal contribution weights, and residual frequency curves.",
+      titleKey: "workflow.step7.title",
+      defaultTitle: "Visual Analytics",
+      descKey: "workflow.step7.desc",
+      defaultDesc: "The system plots interactive scatter charts, horizontal contribution weights, and residual frequency curves.",
       icon: BarChart3,
-      color: "from-amber-500/20 to-indigo-500/5",
       iconColor: "text-amber-400"
     },
     {
       id: "08",
-      title: "History & CSV Export",
-      desc: "Predictions cache to local storage where they are searched, removed, or compiled into a downloadable CSV sheet.",
+      titleKey: "workflow.step8.title",
+      defaultTitle: "History & CSV Export",
+      descKey: "workflow.step8.desc",
+      defaultDesc: "Predictions cache to local storage where they are searched, removed, or compiled into a downloadable CSV sheet.",
       icon: History,
-      color: "from-rose-500/20 to-indigo-500/5",
       iconColor: "text-rose-400"
     }
   ] as const;
@@ -78,13 +89,13 @@ export default function WorkflowSection() {
       {/* Intro section */}
       <div className="space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/25 text-indigo-400 font-mono text-[10px] font-bold uppercase tracking-wider">
-          System Blueprints
+          {t("workflow.badge", "System Blueprints")}
         </div>
         <h2 className="text-3xl font-black text-white tracking-tight uppercase font-sans">
-          System Operational Workflow
+          {t("workflow.title", "System Operational Workflow")}
         </h2>
-        <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-4xl font-sans">
-          A modular step-by-step schematic breaking down how MechAutoML AI processes raw material spreadsheets into high-accuracy, deployable predictive engineering models.
+        <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-4xl font-sans font-semibold">
+          {t("workflow.subtitle", "A modular step-by-step schematic breaking down how MechAutoML AI processes raw material spreadsheets into high-accuracy, deployable predictive engineering models.")}
         </p>
       </div>
 
@@ -113,12 +124,12 @@ export default function WorkflowSection() {
                 </div>
                 
                 <h3 className="text-sm font-black text-white tracking-wide uppercase font-sans leading-tight">
-                  {st.title}
+                  {t(st.titleKey, st.defaultTitle)}
                 </h3>
               </div>
 
-              <p className="text-slate-300 text-xs leading-relaxed font-sans pt-3 border-t border-white/5 mt-4">
-                {st.desc}
+              <p className="text-slate-300 text-xs leading-relaxed font-sans pt-3 border-t border-white/5 mt-4 font-semibold">
+                {t(st.descKey, st.defaultDesc)}
               </p>
             </motion.div>
           );
@@ -132,11 +143,11 @@ export default function WorkflowSection() {
             <GitFork className="w-5 h-5" strokeWidth={2} />
           </div>
           <h4 className="text-sm font-black text-white tracking-wider font-sans uppercase">
-            Validation & Methodology Summary
+            {t("workflow.methodology.badge", "Validation & Methodology Summary")}
           </h4>
         </div>
-        <p className="text-xs md:text-[13.5px] text-slate-350 leading-relaxed font-sans">
-          The processing architecture establishes a fully structured pipeline aligned with the CRISP-DM methodology. Raw data parsed via our client file-worker is clean-partitioned using seed replication vectors corresponding to institutional student constraints (<strong>NIM: 20230130023</strong>). This deterministic consistency allows students and research panels to audit metrics iteratively with 100% mathematical reproducibility.
+        <p className="text-xs md:text-[13.5px] text-slate-300 leading-relaxed font-sans font-semibold">
+          {t("workflow.methodology.text", "The processing architecture establishes a fully structured pipeline aligned with the CRISP-DM methodology. Raw data parsed via our client file-worker is clean-partitioned using seed replication vectors corresponding to institutional student constraints (NIM: 20230130023). This deterministic consistency allows students and research panels to audit metrics iteratively with 100% mathematical reproducibility.")}
         </p>
       </div>
 

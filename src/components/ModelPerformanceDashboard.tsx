@@ -42,8 +42,8 @@ export default function ModelPerformanceDashboard({
     {
       sender: "advisor",
       text: language === "id" 
-        ? "Assalamu'alaikum, Daffa Zain! Saya adalah MECH AI. Di sini kita bebas berdiskusi mengenai hasil evaluasi model AutoML kita. Silakan tanyakan apa saja seputar hasil evaluasi parameter manufaktur dan machine learning untuk proyek Anda!"
-        : "Assalamu'alaikum! I am MECH AI. We can discuss the evaluation metrics of our AutoML model here. Feel free to ask anything about manufacturing parameter evaluations and machine learning for your project!",
+        ? "Assalamu'alaikum, ANANDA NUR DAFFA ZAIN! Saya adalah MECH AI. Di sini kita bebas berdiskusi mengenai hasil evaluasi model AutoML kita. Silakan tanyakan apa saja seputar hasil evaluasi parameter manufaktur dan machine learning untuk proyek Anda!"
+        : "Assalamu'alaikum, ANANDA NUR DAFFA ZAIN! I am MECH AI. We can discuss the evaluation metrics of our AutoML model here. Feel free to ask anything about manufacturing parameter evaluations and machine learning for your project!",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -187,12 +187,12 @@ export default function ModelPerformanceDashboard({
             const mapeVal = bestModel?.mape != null ? (bestModel.mape * 100).toFixed(2) + "%" : "4.12%";
 
             const historyList = [...chatMessages, userMsg]
-              .map(m => `${m.sender === "student" ? "Mahasiswa (Daffa Zain)" : "Asisten AI (MECH AI)"}: ${m.text}`)
+              .map(m => `${m.sender === "student" ? "Mahasiswa (ANANDA NUR DAFFA ZAIN)" : "Asisten AI (MECH AI)"}: ${m.text}`)
               .join("\n\n");
 
             const fullPrompt = `Anda adalah MECH AI, Asisten AI Mekanikal Cerdas terkemuka di Universitas Muhammadiyah Yogyakarta (UMY).
 Anda membimbing mahasiswa berikut:
-- Nama Mahasiswa: Daffa Zain
+- Nama Mahasiswa: ANANDA NUR DAFFA ZAIN
 - NIM: 20230130023
 - Proyek Penelitian: Applied AI in Manufacturing Systems & Mechanical Diagnostics
 
@@ -209,7 +209,7 @@ PERATURAN RESPONS ADAPTIF:
    - Jika mahasiswa memberikan pertanyaan ilmiah berbobot atau bertanya tentang langkah optimasi, fisika material, atau metrik pengujian, berikan analisis akademis ilmiah yang mendalam, terperinci, dan mendidik.
 2. JELASKAN ATAU BACA BERKAS / LAMPIRAN JIKA ADA.
 3. HINDARI SIMBOL MATEMATIKA YANG BERANTAKAN/LATEX JARGON: Selalu tulis persamaan matematika fisis secara bersih dengan teks Unicode murni tanpa simbol LaTeX ($), misalnya R², f².
-4. GAYA BAHASA DAN PENUTUP: Gunakan Bahasa Indonesia yang sangat sopan khas dosen UMY. Selalu panggil mahasiswa dengan hangat sebagai "Daffa Zain" atau "Mas Daffa". JANGAN pernah menyebut diri Anda "Prof. AI Advisor" atau menggunakan signature "- Prof. AI Advisor". Cukup jawab mewakili MECH AI dengan bijaksana dan bersahabat.
+4. GAYA BAHASA DAN PENUTUP: Gunakan Bahasa Indonesia yang sangat sopan khas dosen UMY. Selalu panggil mahasiswa dengan hangat sebagai "ANANDA NUR DAFFA ZAIN" atau "Mas Ananda". JANGAN pernah menyebut diri Anda "Prof. AI Advisor" atau menggunakan signature "- Prof. AI Advisor". Cukup jawab mewakili MECH AI dengan bijaksana dan bersahabat.
 
 Berikut transkrip riwayat obrolan terkini:
 ${historyList}
@@ -219,7 +219,7 @@ MECH AI:`;
               model: "gemini-3.5-flash",
               contents: fullPrompt,
               config: {
-                systemInstruction: "Anda adalah MECH AI, asisten kecerdasan buatan mekanikal yang ramah dan berdedikasi tinggi di UMY untuk mendampingi mahasiswa bernama Daffa Zain (NIM: 20230130023). Anda selalu menyesuaikan panjang jawaban dengan pertanyaan siswa, menyajikan persamaan fisis dengan teks Unicode murni tanpa simbol LaTeX ($), dan tidak pernah membubuhkan signature '- Prof. AI Advisor'."
+                systemInstruction: "Anda adalah MECH AI, asisten kecerdasan buatan mekanikal yang ramah dan berdedikasi tinggi di UMY untuk mendampingi mahasiswa bernama ANANDA NUR DAFFA ZAIN (NIM: 20230130023). Anda selalu menyesuaikan panjang jawaban dengan pertanyaan siswa, menyajikan persamaan fisis dengan teks Unicode murni tanpa simbol LaTeX ($), dan tidak pernah membubuhkan signature '- Prof. AI Advisor'."
               }
             });
             
@@ -252,41 +252,41 @@ MECH AI:`;
         const rmseVal = bestModel?.rmse != null ? bestModel.rmse.toFixed(4) : "0.0519";
 
         if (isShortGreeting) {
-          advisorReply = `Wa'alaikumsalam Warahmatullahi Wabarakatuh, Daffa Zain! Senang sekali bisa menyapa Anda kembali di media bimbingan UMY. Mari kita berdiskusi tentang progres analisis data ${datasetName}. Apa saja yang ingin Daffa Zain tanyakan untuk bimbingan kali ini?`;
+          advisorReply = `Wa'alaikumsalam Warahmatullahi Wabarakatuh, ANANDA NUR DAFFA ZAIN! Senang sekali bisa menyapa Anda kembali di media bimbingan UMY. Mari kita berdiskusi tentang progres analisis data ${datasetName}. Apa saja yang ingin ANANDA NUR DAFFA ZAIN tanyakan untuk bimbingan kali ini?`;
         } else if (qLower.includes("bimbingan") || qLower.includes("skripsi") || qLower.includes("thesis") || qLower.includes("bab")) {
-          advisorReply = `Wa'alaikumsalam Daffa Zain. Analisis machine learning Anda menggunakan model **${modelName}** sudah sangat siap draf-nya untuk dimasukkan ke Bab 4 Skripsi Anda. MECH AI sarankan untuk menjelaskan hubungan sebab-akibat (kausalitas fisis) antara fitur masukan **${featuresStr}** dan target **${target}** daripada sekadar menunjukkan nilai akurasi R²: **${r2Val}**. Tetap catat batasan alat permesinan UMY ya, Daffa Zain. Tetap semangat!`;
+          advisorReply = `Wa'alaikumsalam ANANDA NUR DAFFA ZAIN. Analisis machine learning Anda menggunakan model **${modelName}** sudah sangat siap draf-nya untuk dimasukkan ke Bab 4 Skripsi Anda. MECH AI sarankan untuk menjelaskan hubungan sebab-akibat (kausalitas fisis) antara fitur masukan **${featuresStr}** dan target **${target}** daripada sekadar menunjukkan nilai akurasi R²: **${r2Val}**. Tetap catat batasan alat permesinan UMY ya, ANANDA NUR DAFFA ZAIN. Tetap semangat!`;
         } else if (qLower.includes("optimasi") || qLower.includes("bagaimana cara") || qLower.includes("tingkatkan") || qLower.includes("perbaiki") || qLower.includes("solusi") || qLower.includes("recipe")) {
-          advisorReply = `Wa'alaikumsalam Daffa Zain. Menanggapi diskusi optimasi model **${modelName}** untuk target **${target}**:
+          advisorReply = `Wa'alaikumsalam ANANDA NUR DAFFA ZAIN. Menanggapi diskusi optimasi model **${modelName}** untuk target **${target}**:
  
 1. **Rekayasa Fitur Kuadratik**: Karena pengaruh fisis umpan (feed rate) bersifat eksponensial (Ra ≈ f² / (32 * r)), menambahkan fitur f² akan sangat membantu akurasi regresi.
 2. **Pembersihan Outliers**: Menghilangkan noise/getaran transient dari pembubatan aktual untuk akurasi data yang lebih stabil.
 3. **Penyetelan Hiperparameter**: Melakukan fine-tuning parameter pohon penentu model agar fitting lebih pas.
 
-Bagaimana pendapat Daffa Zain? Ada bagian tertentu yang ingin kita eksplorasi bersama?`;
+Bagaimana pendapat ANANDA NUR DAFFA ZAIN? Ada bagian tertentu yang ingin kita eksplorasi bersama?`;
         } else if (qLower.includes("r2") || qLower.includes("r-squared") || qLower.includes("metrik") || qLower.includes("akurasi") || qLower.includes("mae") || qLower.includes("mape") || qLower.includes("rmse")) {
-          advisorReply = `Wa'alaikumsalam Daffa Zain. Mengenai metrik model, perolehan nilai **R²: ${r2Val}**, MAE: **${maeVal}**, dan RMSE: **${rmseVal}** membuktikan ketepatan model **${modelName}** dalam menginterpretasikan data.
+          advisorReply = `Wa'alaikumsalam ANANDA NUR DAFFA ZAIN. Mengenai metrik model, perolehan nilai **R²: ${r2Val}**, MAE: **${maeVal}**, dan RMSE: **${rmseVal}** membuktikan ketepatan model **${modelName}** dalam menginterpretasikan data.
 
-Secara fisis, deviasi ini dipengaruhi oleh dinamika permesinan yang tidak terekam dalam kolom masukan (seperti getaran pahat, pendinginan cairan, atau keausan mata sayat). Hal ini adalah topik yang sangat berbobot untuk bab pembahasan skripsi Anda di UMY, Daffa Zain.`;
+Secara fisis, deviasi ini dipengaruhi oleh dinamika permesinan yang tidak terekam dalam kolom masukan (seperti getaran pahat, pendinginan cairan, atau keausan mata sayat). Hal ini adalah topik yang sangat berbobot untuk bab pembahasan skripsi Anda di UMY, ANANDA NUR DAFFA ZAIN.`;
         } else if (qLower.includes("g6") || qLower.includes("laboratorium") || qLower.includes("gedung") || qLower.includes("mesin") || qLower.includes("umy")) {
-          advisorReply = `Gedung G6 Teknik Mesin UMY adalah pusat pengembangan penelitian manufaktur dan mekanika terapan kita. Di sanalah tempat kita mengambil data eksperimental ini! Pembubutan dan pengujian kekasaran permukaan dilakukan dengan mesin bubut berpresisi tinggi di lab tersebut. Daffa Zain dapat mereferensikannya dalam draf metodologi skripsi Anda. Selamat belajar, tetap semangat!`;
+          advisorReply = `Gedung G6 Teknik Mesin UMY adalah pusat pengembangan penelitian manufaktur dan mekanika terapan kita. Di sanalah tempat kita mengambil data eksperimental ini! Pembubutan dan pengujian kekasaran permukaan dilakukan dengan mesin bubut berpresisi tinggi di lab tersebut. ANANDA NUR DAFFA ZAIN dapat mereferensikannya dalam draf metodologi skripsi Anda. Selamat belajar, tetap semangat!`;
         } else {
-          advisorReply = `Wa'alaikumsalam Daffa Zain. Pertanyaan bimbingan yang sangat berbobot mengenai target **${target}**!
+          advisorReply = `Wa'alaikumsalam ANANDA NUR DAFFA ZAIN. Pertanyaan bimbingan yang sangat berbobot mengenai target **${target}**!
 
 Model terbaik saat ini, **${modelName}**, telah berhasil memetakan korelasi non-linier antara fitur masukan **${featuresStr}** dan target **${target}** dengan performa tinggi (R²: ${r2Val}). MECH AI menyarankan Anda memperkuat tinjauan termomekanika pemotongan logam untuk melengkapi pembahasan ini.
 
-Apakah ada hal fisis atau matematis spesifik lain pada data ${datasetName} yang ingin kita diskusikan pagi ini? Selamat belajar Daffa Zain! Tetap teliti dalam praktikum.`;
+Apakah ada hal fisis atau matematis spesifik lain pada data ${datasetName} yang ingin kita diskusikan pagi ini? Selamat belajar ANANDA NUR DAFFA ZAIN! Tetap teliti dalam praktikum.`;
         }
       }
 
       setChatMessages(prev => [...prev, {
         sender: "advisor",
-        text: advisorReply.trim() || "Mohon maaf Daffa Zain, saya sedang merumuskan bimbingannya kembali. Silakan ketik kembali masukan Anda ya.",
+        text: advisorReply.trim() || "Mohon maaf ANANDA NUR DAFFA ZAIN, saya sedang merumuskan bimbingannya kembali. Silakan ketik kembali masukan Anda ya.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
     } catch (err: any) {
       setChatMessages(prev => [...prev, {
         sender: "advisor",
-        text: `Koneksi bimbingan terputus: ${err?.message || "Jaringan penuh"}. Silakan klik kirim kembali ya, Daffa Zain.`,
+        text: `Koneksi bimbingan terputus: ${err?.message || "Jaringan penuh"}. Silakan klik kirim kembali ya, ANANDA NUR DAFFA ZAIN.`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
     } finally {

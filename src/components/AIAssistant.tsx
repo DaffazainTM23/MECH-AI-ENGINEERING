@@ -33,8 +33,8 @@ export default function AIAssistant() {
     {
       sender: "advisor",
       text: language === "id" 
-        ? "Assalamu'alaikum Daffa Zain! Saya adalah MECH AI yang mendampingi bimbingan akademik Anda di UMY. Di sini, Anda bisa mengunggah foto pengujian mekanis, cetak biru PDF, maupun dokumen Word (.docx) bimbingan untuk saya telaah dan diskusikan secara cerdas. Bagaimana progres analisis material atau regresi permesinan Anda hari ini?"
-        : "Assalamu'alaikum Daffa Zain! I am MECH AI accompanying your academic bimbingan at UMY. Here, you can upload mechanical test photos, PDF blueprints, or bimbingan Word documents (.docx) for highly intelligent analysis. Shall we review your material statistics or machining regression curves today?",
+        ? "Assalamu'alaikum ANANDA NUR DAFFA ZAIN! Saya adalah MECH AI yang mendampingi bimbingan akademik Anda di UMY. Di sini, Anda bisa mengunggah foto pengujian mekanis, cetak biru PDF, maupun dokumen Word (.docx) bimbingan untuk saya telaah dan diskusikan secara cerdas. Bagaimana progres analisis material atau regresi permesinan Anda hari ini?"
+        : "Assalamu'alaikum ANANDA NUR DAFFA ZAIN! I am MECH AI accompanying your academic bimbingan at UMY. Here, you can upload mechanical test photos, PDF blueprints, or bimbingan Word documents (.docx) for highly intelligent analysis. Shall we review your material statistics or machining regression curves today?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -240,14 +240,14 @@ export default function AIAssistant() {
       
       setMessages(prev => [...prev, {
         sender: "advisor",
-        text: result.reply || "Mohon maaf Daffa Zain, server bimbingan sedang menguji optimasi. Silakan ajukan beberapa detik lagi.",
+        text: result.reply || "Mohon maaf ANANDA NUR DAFFA ZAIN, server bimbingan sedang menguji optimasi. Silakan ajukan beberapa detik lagi.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
 
     } catch (err: any) {
       setMessages(prev => [...prev, {
         sender: "advisor",
-        text: "Terjadi gangguan jaringan bimbingan mekanikal, Daffa Zain. Silakan periksa koneksi atau ulangi menekan tombol kirim.",
+        text: "Terjadi gangguan jaringan bimbingan mekanikal, ANANDA NUR DAFFA ZAIN. Silakan periksa koneksi atau ulangi menekan tombol kirim.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
     } finally {
@@ -420,7 +420,7 @@ export default function AIAssistant() {
                       <div className="flex items-center justify-between mb-2 border-b border-white/[0.04] pb-1.5">
                         <span className="text-[9px] font-mono font-black uppercase tracking-widest text-[#81879a] flex items-center gap-1">
                           {isAdvisor ? <Sparkles className="w-3 h-3 text-cyan-400" /> : <Terminal className="w-3 h-3 text-pink-400" />}
-                          {isAdvisor ? "MECH AI" : "STUDENT (Daffa Zain)"}
+                          {isAdvisor ? "MECH AI" : "STUDENT (ANANDA NUR DAFFA ZAIN)"}
                         </span>
                         
                         <div className="flex items-center space-x-2.5">

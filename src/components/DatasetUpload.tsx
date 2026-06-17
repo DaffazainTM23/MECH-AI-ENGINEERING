@@ -936,23 +936,23 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
         <div className="space-y-2.5 flex flex-col items-center justify-center w-full">
           <div className="inline-flex items-center space-x-2 px-3 py-1 bg-white/5 border border-white/10 text-slate-300 rounded-full text-[10px] font-mono tracking-wider font-extrabold uppercase mx-auto shadow-inner">
             <Sparkles className="w-3.5 h-3.5 animate-pulse text-amber-400" />
-            <span>Interactive Machine Construction Pipeline</span>
+            <span>{t("upload.pipeline_badge", "Interactive Machine Construction Pipeline")}</span>
           </div>
           <h2 className="text-3xl font-black text-rose-55 print:text-black tracking-tight flex items-center justify-center gap-2">
             <FileSpreadsheet className="w-8 h-8 text-slate-300" />
-            <span>High-Rigor AutoML Workspace</span>
+            <span>{t("upload.workspace_title", "High-Rigor AutoML Workspace")}</span>
           </h2>
-          <p className="text-slate-400 leading-relaxed text-xs max-w-3xl mx-auto font-medium">
-            A cohesive full-width workspace designed for mechanical Engineering diagnostics. Ingest files, bind properties, fine-tune estimators manually, and compile ML.
+          <p className="text-slate-450 leading-relaxed text-xs max-w-3xl mx-auto font-semibold">
+            {t("upload.workspace_desc", "A cohesive full-width workspace designed for mechanical Engineering diagnostics. Ingest files, bind properties, fine-tune estimators manually, and compile ML.")}
           </p>
         </div>
 
         {/* Diagnostic indicator */}
         {currentDataset && currentDataset.fileName && (
           <div className="bg-[#0b0c10] border border-white/5 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.95)] rounded-xl p-3 text-center shrink-0 w-full max-w-md mx-auto">
-            <span className="text-[9px] uppercase font-mono text-slate-500 font-extrabold block">Ingested Workspace</span>
+            <span className="text-[9px] uppercase font-mono text-slate-500 font-extrabold block">{t("upload.ingested_workspace", "Ingested Workspace")}</span>
             <span className="text-xs font-mono font-black text-emerald-400 block truncate max-w-[320px] mx-auto" title={currentDataset.fileName}>{currentDataset.fileName}</span>
-            <span className="text-[10px] font-mono text-slate-400 block">{currentDataset.rowCount} rows · {currentDataset.colCount} properties</span>
+            <span className="text-[10px] font-mono text-slate-400 block">{currentDataset.rowCount} {t("upload.rows", "rows")} · {currentDataset.colCount} {t("upload.properties", "properties")}</span>
           </div>
         )}
       </div>
@@ -960,10 +960,10 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
       {/* 2. Stepped Timeline Bar (Step visual progress) */}
       <div className="grid grid-cols-4 gap-2 bg-slate-950/60 border border-white/5 rounded-2xl p-2 text-center shadow-inner" id="multi_step_headers">
         {[
-          { step: 1, label: "Ingest Data", icon: Upload },
-          { step: 2, label: "Define Matrices", icon: Target },
-          { step: 3, label: "Model Selection", icon: Settings },
-          { step: 4, label: "AI Compiler", icon: Cpu }
+          { step: 1, label: t("upload.ingest_data", "Ingest Data"), icon: Upload },
+          { step: 2, label: t("upload.define_matrices", "Define Matrices"), icon: Target },
+          { step: 3, label: t("upload.model_selection", "Model Selection"), icon: Settings },
+          { step: 4, label: t("upload.ai_compiler", "AI Compiler"), icon: Cpu }
         ].map((item) => {
           const Icon = item.icon;
           const isActive = activeStep === item.step;
@@ -1088,13 +1088,13 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
                 
                 <div className="space-y-2">
                   <span className="text-[10px] font-mono tracking-widest font-extrabold text-indigo-400 uppercase bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">
-                    Ingesting Workbook Dataset
+                    {t("upload.ingesting_workbook", "Ingesting Workbook Dataset")}
                   </span>
                   <h4 className="text-lg font-black text-white font-sans tracking-tight">
-                    Running AI Diagnostic Parsing
+                    {t("upload.running_diagnostic", "Running AI Diagnostic Parsing")}
                   </h4>
                   <p className="text-slate-400 text-xs max-w-sm mx-auto font-sans leading-relaxed">
-                    Analyzing dataset variables, measuring sparse matrices, and indexing engineering parameters...
+                    {t("upload.analyzing_variables", "Analyzing dataset variables, measuring sparse matrices, and indexing engineering parameters...")}
                   </p>
                 </div>
 
@@ -1107,7 +1107,7 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
               <div className="nm-card p-6.5 font-sans">
                 <h3 className="text-sm font-black font-mono tracking-wider text-zinc-200 uppercase border-b border-white/5 pb-3.5 mb-5 flex items-center gap-2">
                   <Upload className="w-4 h-4 text-indigo-400" />
-                  <span>Workbook Ingest Deck (Supports xlsx, csv, zip)</span>
+                  <span>{t("upload.ingest_deck_title", "Workbook Ingest Deck (Supports xlsx, csv, zip)")}</span>
                 </h3>
 
                 {/* Ingestion Premium FileUpload Section */}
@@ -1128,17 +1128,17 @@ print(f"Random Forest fitted with R²: {rf.score(X_test, y_test):.4f}")
                     </div>
                     <div>
                       <h3 className="text-sm font-black font-mono tracking-wider text-slate-200 uppercase leading-none">
-                        Active Telemetry Repository Decks
+                        {t("upload.registry_title", "Active Telemetry Repository Decks")}
                       </h3>
                       <p className="text-[10px] text-slate-400 mt-1.5 font-sans leading-tight">
-                        Click a sheet card to set it as active preview. Pick multiple sheets to execute synthetic data merges.
+                        {t("upload.registry_desc", "Click a sheet card to set it as active preview. Pick multiple sheets to execute synthetic data merges.")}
                       </p>
                     </div>
                   </div>
                   
                   <div className="flex items-center space-x-2 shrink-0">
                     <span className="text-[10px] font-mono bg-black border border-white/10 text-white px-3 py-1.5 rounded-full font-black uppercase tracking-wider shadow-[inset_2px_2px_5px_rgba(0,0,0,0.8)]">
-                      {datasetRegistry.length} worksheets loaded
+                      {datasetRegistry.length} {t("upload.worksheets_loaded", "worksheets loaded")}
                     </span>
                   </div>
                 </div>
